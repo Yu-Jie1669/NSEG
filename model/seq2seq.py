@@ -231,7 +231,10 @@ class PointerNet(nn.Module):
         sorted_len, ix = torch.sort(tgt_len, descending=True)
         sorted_dec_inputs = dec_inputs[ix]
 
-        packed_dec_inputs = nn.utils.rnn.pack_padded_sequence(sorted_dec_inputs, sorted_len, True)
+        cpu_sort_len=sorted_len.cpu()
+
+        packed_dec_inputs = nn.utils.rnn.pack_padded_sequence(sorted_dec_inputs, cpu_sort_len, True)
+
         hn, cn = hcn
         sorted_hn = hn[:, ix]
         sorted_cn = cn[:, ix]
@@ -300,8 +303,10 @@ class PointerNet(nn.Module):
         sorted_len, ix = torch.sort(length, descending=True)
         sorted_src = src[ix]
 
+        cpu_sort_len=sorted_len.cpu()
         # bi-rnn must uses pack, else needs mask
-        packed_x = nn.utils.rnn.pack_padded_sequence(sorted_src, sorted_len, batch_first=True)
+        packed_x = nn.utils.rnn.pack_padded_sequence(sorted_src, cpu_sort_len, batch_first=True)
+
         x = packed_x.data
 
         x = self.src_embed(x)

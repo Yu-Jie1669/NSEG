@@ -21,7 +21,7 @@ class Beam(object):
         else:
             nbest_score, nbest_ix = score.view(-1).topk(self.beam_size, largest=False)
 
-        beam_ix = nbest_ix / prob.size(1)
+        beam_ix = nbest_ix // prob.size(1)
         token_ix = nbest_ix - beam_ix * prob.size(1)
 
         done_list, remain_list = [], []
