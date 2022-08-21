@@ -50,7 +50,7 @@ class DocDataset(data.Dataset):
         fields = [('doc', text_field), ('order', order_field), ('entity', graph_field)]
         examples = []
         path, einspath = path
-        with open(path, 'r', encoding=encoding) as f, open(einspath, 'r') as fe:
+        with open(path, 'r', encoding=encoding,errors='ignore') as f, open(einspath, 'r',errors='ignore') as fe:
             for line, lineeins in zip(f, fe):
                 line = line.strip()
                 order = list(range(line.count('<eos>') + 1))
