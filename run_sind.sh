@@ -18,7 +18,7 @@ gnndp=0.5
 
 modelname=gdp${gnndp}_gl${gnnl}_${datapath}
 prefix=lower
-CUDA_VISIBLE_DEVICES=2 nohup python -u main.py --model ${modelname} --vocab $datapath/vocab.new.100d.lower.pt \
+CUDA_VISIBLE_DEVICES=3 nohup python -u main.py --model ${modelname} --vocab $datapath/vocab.new.100d.lower.pt \
     --corpus $datapath/train.lower $datapath/train.eg --valid $datapath/val.lower $datapath/val.eg \
     --test $datapath/test.lower $datapath/test.eg --loss 0 \
     --writetrans decoding/${modelname}.devorder --ehid ${eh} --entityemb glove \
