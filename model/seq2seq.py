@@ -339,6 +339,8 @@ class PointerNet(nn.Module):
 
     def encode(self, src_and_len, doc_num, ewords_and_len, elocs):
         # get sentence emb and mask
+        # [batch_size,sentence_num,length]
+        #
         sentences, words_states = self.rnn_enc(src_and_len, doc_num)
 
         if self.model_dp > 0:
